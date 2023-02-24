@@ -1,9 +1,11 @@
 package homework;
 
+import java.sql.Timestamp;
+
 public class Lesson {
     private Integer id;
     private String name;
-    private String homework;
+    private Homework homework;
 
     public Lesson() {
     }
@@ -24,11 +26,11 @@ public class Lesson {
         this.name = name;
     }
 
-    public String getHomework() {
+    public Homework getHomework() {
         return homework;
     }
 
-    public void setHomework(String homework) {
+    public void setHomework(Homework homework) {
         this.homework = homework;
     }
 
@@ -37,7 +39,7 @@ public class Lesson {
         return "Lesson {" +
                 "id = " + id +
                 ", name ='" + name + '\'' +
-                ", homeworkId ='" + homework + '\'' +
+                ", homework ='" + homework + '\'' +
                 '}';
     }
 }
