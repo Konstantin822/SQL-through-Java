@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonDao {
-    private DataBaseConnection dataBaseConnection;
+    private static DataBaseConnection dataBaseConnection;
     public LessonDao(DataBaseConnection dataBaseConnection) {
         this.dataBaseConnection = dataBaseConnection;
     }
@@ -39,7 +39,8 @@ public class LessonDao {
 
     public Lesson getAllLessons() {
         List<Lesson> lessonList = new ArrayList<>();
-        String sql = "SELECT * FROM lesson";
+        List<Homework> homeworkList = new ArrayList<>();
+        String sql = "SELECT lesson.*, homework.* FROM lesson JOIN homework";
         try (Connection connection = dataBaseConnection.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute(sql);
@@ -47,22 +48,24 @@ public class LessonDao {
 
             while (resultSet.next()) {
                 Lesson lesson = new Lesson();
-                lesson.setId(resultSet.getInt("lesson.id"));
-                lesson.setName(resultSet.getString("lesson.name"));
+                lesson.setId(resultSet.getInt("id"));
+                lesson.setName(resultSet.getString("name"));
 
                 Homework hw = new Homework();
-                hw.setId(resultSet.getInt("homework.id"));
+                hw.setId(resultSet.getInt("id"));
 
                 lessonList.add(lesson);
+                homeworkList.add(hw);
             }
             System.out.println(lessonList);
+            System.out.println(homeworkList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return null;
     }
 
-    public Lesson getLessonById(Integer id) {
+    public static Lesson getLessonById(Integer id) {
         String sql = "SELECT lesson.*, homework.* FROM lesson"
                 + " JOIN homework"
                 + " ON lesson.homeworkId = homework.id"
@@ -70,17 +73,17 @@ public class LessonDao {
         try (Connection connection = dataBaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
+            statement.execute();
             ResultSet resultSet = statement.getResultSet();
             resultSet.next();
 
             Lesson lesson = new Lesson();
-            lesson.setId(resultSet.getInt("lesson.id"));
-            lesson.setName(resultSet.getString("lesson.name"));
+            lesson.setId(resultSet.getInt("id"));
+            lesson.setName(resultSet.getString("name"));
 
             Homework hw = new Homework();
-            hw.setId(resultSet.getInt("homework.id"));
+            hw.setId(resultSet.getInt("id"));
 
-            lesson.setHomework(hw);
 
             return lesson;
         } catch (SQLException e) {

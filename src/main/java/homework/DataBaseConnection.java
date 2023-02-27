@@ -19,11 +19,4 @@ public class DataBaseConnection {
         return DriverManager.getConnection(url, username, password);
     }
 
-    public static void close(Connection connection) {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

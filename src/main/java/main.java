@@ -1,7 +1,4 @@
-import homework.DataBaseConnection;
-import homework.Homework;
-import homework.Lesson;
-import homework.LessonDao;
+import homework.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,18 +6,30 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
             DataBaseConnection dataBaseConnection = new DataBaseConnection(
-                    "jdbc:mysql://localhost:3306/homeworkdb",
-                    "MYSQL_USER",
-                    "MYSQL_PASSWORD");
+                    "jdbc:mysql://localhost:3306/homeworkdb2",
+                    "root",
+                    "123456789");
 
             LessonDao lessonDao = new LessonDao(dataBaseConnection);
+            HomeworkDao homeworkDao = new HomeworkDao(dataBaseConnection);
+
+            Homework hw = new Homework();
+            //hw.setName("Physics");
+            //hw.setDescription("Atom");
+            //homeworkDao.addHomework(hw);
+
+            Lesson lesson = new Lesson();
+            //lesson.setName("Physics");
+            //lesson.setHomework(hw);
+            //lessonDao.addLesson(lesson);
+
+            //lesson.setId(4);
+            //lessonDao.deleteLesson(lesson);
+
+            lessonDao.getLessonById(2);
             lessonDao.getAllLessons();
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 }
