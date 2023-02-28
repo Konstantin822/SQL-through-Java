@@ -48,11 +48,11 @@ public class LessonDao {
 
             while (resultSet.next()) {
                 Lesson lesson = new Lesson();
-                lesson.setId(resultSet.getInt("id"));
-                lesson.setName(resultSet.getString("name"));
+                lesson.setId(resultSet.getInt("lesson.id"));
+                lesson.setName(resultSet.getString("lesson.name"));
 
                 Homework hw = new Homework();
-                hw.setId(resultSet.getInt("id"));
+                hw.setId(resultSet.getInt("lesson.id"));
 
                 lessonList.add(lesson);
                 homeworkList.add(hw);
@@ -65,25 +65,24 @@ public class LessonDao {
         return null;
     }
 
-    public static Lesson getLessonById(Integer id) {
+    public static Lesson getLessonById(Integer lessonId) {
         String sql = "SELECT lesson.*, homework.* FROM lesson"
                 + " JOIN homework"
                 + " ON lesson.homeworkId = homework.id"
                 + " WHERE lesson.id = ?";
         try (Connection connection = dataBaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setInt(1, lessonId);
             statement.execute();
             ResultSet resultSet = statement.getResultSet();
             resultSet.next();
 
             Lesson lesson = new Lesson();
-            lesson.setId(resultSet.getInt("id"));
-            lesson.setName(resultSet.getString("name"));
+            lesson.setId(resultSet.getInt("lesson.id"));
+            lesson.setName(resultSet.getString("lesson.name"));
 
             Homework hw = new Homework();
-            hw.setId(resultSet.getInt("id"));
-
+            hw.setId(resultSet.getInt("homework.id"));
 
             return lesson;
         } catch (SQLException e) {
