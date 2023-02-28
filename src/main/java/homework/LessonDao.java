@@ -52,7 +52,7 @@ public class LessonDao {
                 lesson.setName(resultSet.getString("lesson.name"));
 
                 Homework hw = new Homework();
-                hw.setId(resultSet.getInt("lesson.id"));
+                hw.setId(resultSet.getInt("homework.id"));
 
                 lessonList.add(lesson);
                 homeworkList.add(hw);
