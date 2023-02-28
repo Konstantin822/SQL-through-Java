@@ -15,19 +15,19 @@ public class main {
             HomeworkDao homeworkDao = new HomeworkDao(dataBaseConnection);
 
             Homework hw = new Homework();
-            //hw.setName("Physics");
-            //hw.setDescription("Atom");
-            //homeworkDao.addHomework(hw);
+            hw.setName("Physics");
+            hw.setDescription("Atom");
+            homeworkDao.addHomework(hw);
 
             Lesson lesson = new Lesson();
-            //lesson.setName("Physics");
-            //lesson.setHomework(hw);
-            //lessonDao.addLesson(lesson);
+            lesson.setName("Physics");
+            lesson.setHomework(hw);
+            lessonDao.addLesson(lesson);
 
-            //lesson.setId(3);
-            //lessonDao.deleteLesson(lesson);
+            lesson.setId(3);
+            lessonDao.deleteLesson(lesson);
 
-            //lessonDao.getLessonById(1);
+            lessonDao.getLessonById(1);
             lessonDao.getAllLessons();
 
 
